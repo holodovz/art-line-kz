@@ -19,7 +19,29 @@ function LeadModal({ onClose, lang }: { onClose: () => void; lang: Language }) {
   const [status, setStatus] = useState<FormState>("idle");
   const t = copy[lang].form;
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setStatus("sent"); };
-  return <div className="fixed inset-0 z-[60] grid place-items-center bg-[#111613]/65 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="lead-title"><div className="w-full max-w-xl overflow-hidden bg-[#f6f4ef] shadow-2xl"><div className="flex items-start justify-between border-b border-black/10 px-6 py-5 sm:px-8"><div><p className="eyebrow">{t.kicker}</p><h2 id="lead-title" className="mt-2 text-3xl font-bold tracking-[-0.06em] text-[#111613]">{t.title}</h2></div><button onClick={onClose} className="rounded-full p-2 transition hover:bg-black/5" aria-label={t.close}><X size={22} /></button></div>{status === "sent" ? <div className="px-6 py-16 text-center sm:px-8"><div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#d7ff34]"><Check size={25} /></div><h3 className="mt-6 text-3xl font-bold tracking-[-0.05em]">{t.successTitle}</h3><p className="mx-auto mt-3 max-w-sm text-base leading-6 text-[#5c625e]">{t.successText}</p><button onClick={onClose} className="mt-8 border-b border-[#111613] pb-1 text-sm font-bold uppercase tracking-[0.12em]">{t.back}</button></div> : <form onSubmit={submit} className="grid gap-5 px-6 py-7 sm:grid-cols-2 sm:px-8"><label className="form-label">{t.name}<input required name="name" placeholder={t.namePlaceholder} className="form-input" /></label><label className="form-label">{t.phone}<input required name="phone" type="tel" placeholder="+7 (___) ___-__-__" className="form-input" /></label><label className="form-label sm:col-span-2">{t.service}<select name="service" className="form-input"><option>{t.servicePlaceholder}</option>{t.services.map((service) => <option key={service}>{service}</option>)}</select></label><label className="form-label sm:col-span-2">{t.comment}<textarea name="comment" rows={3} placeholder={t.commentPlaceholder} className="form-input resize-none" /></label><div className="sm:col-span-2 flex flex-col gap-4 border-t border-black/10 pt-5 sm:flex-row sm:items-center sm:justify-between"><p className="max-w-xs text-xs leading-5 text-[#68706a]">{t.consent}</p><button className="signal-button justify-center" type="submit">{t.submit} <ArrowUpRight size={18} /></button></div></form>}</div></div>;
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-[#111613]/65 p-3 backdrop-blur-sm sm:p-4" role="dialog" aria-modal="true" aria-labelledby="lead-title">
+      <div className="my-auto flex max-h-[calc(100dvh-1.5rem)] w-full max-w-xl flex-col overflow-hidden bg-[#f6f4ef] shadow-2xl sm:max-h-[calc(100dvh-2rem)]">
+        <div className="flex shrink-0 items-start justify-between border-b border-black/10 px-5 py-4 sm:px-8 sm:py-5">
+          <div><p className="eyebrow">{t.kicker}</p><h2 id="lead-title" className="mt-1 text-2xl font-bold tracking-[-0.06em] text-[#111613] sm:mt-2 sm:text-3xl">{t.title}</h2></div>
+          <button onClick={onClose} className="rounded-full p-2 transition hover:bg-black/5" aria-label={t.close}><X size={22} /></button>
+        </div>
+        {status === "sent" ? (
+          <div className="min-h-0 overflow-y-auto px-5 py-10 text-center sm:px-8 sm:py-16"><div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#d7ff34]"><Check size={25} /></div><h3 className="mt-6 text-3xl font-bold tracking-[-0.05em]">{t.successTitle}</h3><p className="mx-auto mt-3 max-w-sm text-base leading-6 text-[#5c625e]">{t.successText}</p><button onClick={onClose} className="mt-8 border-b border-[#111613] pb-1 text-sm font-bold uppercase tracking-[0.12em]">{t.back}</button></div>
+        ) : (
+          <form onSubmit={submit} className="grid min-h-0 flex-1 gap-4 overflow-y-auto px-5 py-5 overscroll-contain sm:grid-cols-2 sm:gap-5 sm:px-8 sm:py-7">
+            <label className="form-label">{t.name}<input required name="name" placeholder={t.namePlaceholder} className="form-input" /></label>
+            <label className="form-label">{t.phone}<input required name="phone" type="tel" placeholder="+7 (___) ___-__-__" className="form-input" /></label>
+            <label className="form-label sm:col-span-2">{t.service}<select name="service" className="form-input"><option>{t.servicePlaceholder}</option>{t.services.map((service) => <option key={service}>{service}</option>)}</select></label>
+            <label className="form-label sm:col-span-2">{t.comment}<textarea name="comment" rows={3} placeholder={t.commentPlaceholder} className="form-input resize-none" /></label>
+            <div className="sticky bottom-[-1.25rem] -mx-5 flex flex-col gap-3 border-t border-black/10 bg-[#f6f4ef] px-5 pb-5 pt-4 sm:col-span-2 sm:bottom-[-1.75rem] sm:-mx-8 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:pb-7 sm:pt-5">
+              <p className="max-w-xs text-xs leading-5 text-[#68706a]">{t.consent}</p><button className="signal-button justify-center" type="submit">{t.submit} <ArrowUpRight size={18} /></button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default function Home({ lang }: { lang: Language }) {
