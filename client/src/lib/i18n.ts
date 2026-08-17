@@ -1,9 +1,10 @@
-/** Art Line localization catalog: add future page strings here for a single RU/KZ source of truth. */
-export type Language = "ru" | "kz";
+/** Art Line localization catalog: add future page strings here for a single RU/KZ/EN source of truth. */
+export type Language = "ru" | "kz" | "en";
 
 export const languageMeta = {
   ru: { code: "RU", label: "Русский", htmlLang: "ru", path: "/" },
   kz: { code: "KZ", label: "Қазақша", htmlLang: "kk", path: "/kz/" },
+  en: { code: "EN", label: "English", htmlLang: "en", path: "/en/" },
 } as const;
 
 export const copy = {
@@ -56,5 +57,30 @@ export const copy = {
     faq: { kicker: "05 / СҰРАҚТАР", title: ["Негізгісі", "туралы қысқаша."], text: "Тізімде сұрағыңыз болмаса, WhatsApp-қа жазыңыз — міндетті ыңғайлы форматта талқылаймыз.", action: "WhatsApp-қа жазу", items: [["Есеп неден басталады?", "Қысқаша брифтен: конструкция түрі, нысан мекенжайы не фотосы, қажетті мерзім және байланыс деректері. Дерек жетіспесе, менеджер нақтылау немесе өлшеу уақытын келіседі."], ["Дизайн бен монтажды бірге тапсырыс беруге бола ма?", "Иә. Кешенді жоба үшін бір маршрут құрамыз: міндет, өлшеу, макет, келісу, өндіру және нысанда монтаж."], ["Қандай материалдар қолданасыздар?", "Материалдар нысан жағдайына, конструкция өлшеміне, жарық түріне және бюджетке сай таңдалады. Есепте менеджер таңдалған нұсқа мен сипаттамасын бекітеді."], ["Желілік және корпоративтік нысандармен жұмыс істейсіздер ме?", "Иә. Бірнеше нысанға ортақ конструкциялар, навигация және брендтеу жиынтығын дайындап, іске қосу тәртібін нақтылаймыз."]] },
     contacts: { kicker: "06 / БАЙЛАНЫС", title: ["Сізді", "көрінетін етейік."], channel: "Александр / Телефон және WhatsApp", address: "Мекенжай", schedule: "Алматы, Төретай көшесі, 43\nДс–Сб, 08:00–18:00", request: "Өтінім", office: "Өндіріс және кеңсе", city: "Алматы", footer: "Алматыдағы сыртқы және интерьерлік жарнама" },
     form: { kicker: "ART LINE / ӨТІНІМ", title: "Жобаны есептеу", close: "Форманы жабу", name: "Аты-жөніңіз", namePlaceholder: "Мысалы, Арман", phone: "Телефон", service: "Не жасау керек?", servicePlaceholder: "Қызметті таңдаңыз", services: ["Маңдайша / көлемді әріптер", "Жарық қорап", "Витринаны безендіру", "Навигация / тақтайшалар", "Баспа / брендтеу", "Кешенді безендіру"], comment: "Міндет туралы қысқаша", commentPlaceholder: "Өлшем, нысан фотосы, қажет мерзім — бар деректің бәрін жазыңыз.", consent: "Форманы жіберу арқылы дербес деректерді өңдеуге келісесіз.", submit: "Өтінім жіберу", successTitle: "Өтінім қабылданды.", successText: "Рақмет. Art Line менеджері міндетті нақтылап, есеп дайындау үшін сізбен хабарласады.", back: "Сайтқа оралу" },
+  },
+  en: {
+    seoTitle: "Art Line — Outdoor Advertising in Almaty",
+    nav: [["Services", "services"], ["Formats", "formats"], ["Process", "process"], ["Contacts", "contacts"]] as const,
+    language: "Language",
+    home: "Back to home",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    calcShort: "Get a quote",
+    calcProject: "Estimate a project",
+    hero: { label: "Almaty / outdoor advertising", title: ["Make your business", "visible."], text: "Signage, illuminated structures, wayfinding and branding — from the first sketch to precise on-site installation.", primary: "Estimate the cost", secondary: "View formats", facade: "Façade solutions", production: "Project — to production", alt: "Illustrative building façade with an illuminated sign" },
+    services: { kicker: "01 / SERVICES", title: ["We make what", "gets noticed."], text: "Art Line builds the entire brand environment — from a visible façade sign to precise wayfinding inside the space.", items: [
+      ["Signs & dimensional letters", "Illuminated, halo-lit and non-illuminated solutions for façades and interiors.", "Façades"],
+      ["Light boxes", "Light boxes and illuminated panels that stay legible in the city by day and after dark.", "Lighting"],
+      ["Shop window design", "Window graphics, films, seasonal campaigns and branding that give a business a strong first interaction.", "Retail"],
+      ["Wayfinding & plaques", "Systems that organise a space: offices, retail locations and public areas.", "Environment"],
+      ["Large-format printing", "Banners, stickers and promotional surfaces for interiors, streets and events.", "Print"],
+      ["Branding", "Vehicles, displays, photo zones and temporary structures for events and activations.", "Campaign"],
+    ] },
+    formats: { kicker: "02 / WORK FORMATS", title: ["Every site has", "its own language."], action: "Discuss a project", cards: [["Façades / 01", ["A sign is", "the first encounter."], "Illustration of a façade sign"], ["Environment / 02", ["Wayfinding", "that leads."], "Illustration of a wayfinding system"], ["Workshop / 03", ["Precision", "in every detail."], "Illustration of production work"]], note: "Visual materials on this page are illustrative. Verified Art Line projects are added to the portfolio after client approval." },
+    process: { kicker: "03 / PROJECT ROUTE", title: ["A visible result", "needs a precise process."], text: "No scattered contractors: we bring the work into one clear route and stay in touch at every stage.", steps: [["Brief & site", "We gather the starting information and review what is already available."], ["Survey & layout", "We confirm dimensions, choose the form and materials."], ["Approval", "We approve the solution before it enters production."], ["Production", "We build the structure with quality control at every stage."], ["Installation", "We install on site and hand over the finished result."]] },
+    cta: { kicker: "04 / QUICK START", marker: "PROJECT MAP", title: ["Have a site?", "Let's estimate."], text: "Send a photo, dimensions or simply describe the task. We will suggest the next step and prepare an estimate.", action: "Get an estimate" },
+    faq: { kicker: "05 / QUESTIONS", title: ["The essentials,", "briefly."], text: "If your question is not listed, message us on WhatsApp — we will discuss your project in a convenient format.", action: "Message on WhatsApp", items: [["Where does an estimate start?", "With a short brief: structure type, address or site photo, preferred timing and contact details. If more information is needed, the manager will arrange a convenient time to clarify the task or take measurements."], ["Can I order design and installation together?", "Yes. For an end-to-end project, we build one route: brief, survey, layout, approval, production and on-site installation."], ["Which materials do you use?", "Materials are selected based on site conditions, construction size, lighting type and budget. The manager records the selected option and specification in the estimate."], ["Do you work with chains and corporate sites?", "Yes. For multi-location projects, we can prepare a consistent set of structures, wayfinding and branding with a clear launch sequence."]] },
+    contacts: { kicker: "06 / CONTACTS", title: ["Let's make you", "more visible."], channel: "Alexander / Phone & WhatsApp", address: "Address", schedule: "43 Toretay St., Almaty\nMon–Sat, 08:00–18:00", request: "Request", office: "Workshop & office", city: "Almaty", footer: "Outdoor and interior advertising in Almaty" },
+    form: { kicker: "ART LINE / REQUEST", title: "Estimate a project", close: "Close form", name: "Your name", namePlaceholder: "For example, Alex", phone: "Phone", service: "What do you need?", servicePlaceholder: "Choose a service", services: ["Sign / dimensional letters", "Light box", "Shop window design", "Wayfinding / plaques", "Printing / branding", "Full branding project"], comment: "Tell us about the project", commentPlaceholder: "Dimensions, a site photo, a preferred date — anything you already know.", consent: "By submitting the form, you consent to the processing of personal data.", submit: "Send request", successTitle: "Request received.", successText: "Thank you. An Art Line manager will contact you to clarify the project and prepare an estimate.", back: "Return to site" },
   },
 } as const;
