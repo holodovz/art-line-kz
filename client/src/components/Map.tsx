@@ -3,6 +3,7 @@
 import { Maximize2, X } from "lucide-react";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import "./map.css";
 
 declare global {
   interface Window {
@@ -43,6 +44,7 @@ function loadMapScript() {
 
     script.src = getMapsScriptUrl();
     script.async = true;
+    script.crossOrigin = "anonymous";
     script.onload = () => {
       window.clearTimeout(timeout);
       if (window.google?.maps) resolve();
@@ -78,7 +80,7 @@ export function MapView({
   onMapReady,
   fallback,
   onStatusChange,
-  staticFallback = true,
+  staticFallback = false,
 }: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapFrame = useRef<HTMLDivElement>(null);
@@ -146,9 +148,12 @@ export function MapView({
     };
   }, [initialCenter, initialZoom, onMapReady, onStatusChange, staticFallback]);
 
+  const showEmbedFallback = staticFallback || status === "error";
+  const showPlaque = !isFullscreen && (status === "ready" || showEmbedFallback);
+
   return (
     <div ref={mapFrame} className={cn("map-fullscreen-frame relative h-[500px] w-full !opacity-100", className)}>
-      {staticFallback ? (
+      {showEmbedFallback ? (
         <>
           <iframe
             className="map-embed absolute inset-0 h-full w-full border-0"
@@ -157,16 +162,15 @@ export function MapView({
             loading="eager"
             referrerPolicy="no-referrer-when-downgrade"
           />
-          {fallback && <div className={`map-embed-plaque ${isFullscreen ? "is-hidden" : ""}`}>{fallback}</div>}
-          <button type="button" onClick={isFullscreen ? exitFullscreen : openFullscreen} className={`map-fullscreen-control ${isFullscreen ? "is-exit" : ""}`} aria-label={isFullscreen ? exitFullscreenLabel : fullscreenLabel}>{isFullscreen ? <X size={17} /> : <Maximize2 size={15} />}<span>{isFullscreen ? exitFullscreenLabel : fullscreenLabel}</span></button>
         </>
       ) : (
         <>
-          <div ref={mapContainer} className="absolute inset-0" aria-hidden={status !== "ready"} />
+          <div ref={mapContainer} className="map-sdk absolute inset-0" aria-hidden={status !== "ready"} />
           {status === "loading" && <div className="map-status" aria-live="polite"><span /></div>}
-          {status === "error" && <div className="map-fallback" role="status">{fallback}</div>}
         </>
       )}
+      {fallback && showPlaque && <div className="map-embed-plaque">{fallback}</div>}
+      <button type="button" onClick={isFullscreen ? exitFullscreen : openFullscreen} className={`map-fullscreen-control ${isFullscreen ? "is-exit" : ""}`} aria-label={isFullscreen ? exitFullscreenLabel : fullscreenLabel}>{isFullscreen ? <X size={17} /> : <Maximize2 size={15} />}<span>{isFullscreen ? exitFullscreenLabel : fullscreenLabel}</span></button>
     </div>
   );
 }

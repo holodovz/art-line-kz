@@ -123,7 +123,14 @@ export default function Home({ lang }: { lang: Language }) {
   const portfolioNext = useCallback(() => setPortfolioSlide(value => getCircularIndex(value, 1, PORTFOLIO.length)), []);
   const lightboxPrevious = useCallback(() => setPortfolioActive(value => value === null ? null : getCircularIndex(value, -1, PORTFOLIO.length)), []);
   const lightboxNext = useCallback(() => setPortfolioActive(value => value === null ? null : getCircularIndex(value, 1, PORTFOLIO.length)), []);
-  const handleMapReady = useCallback((map: google.maps.Map) => { new google.maps.marker.AdvancedMarkerElement({ map, position: CONTACT.location, title: "Art Line — Торетай, 43" }); }, []);
+  const handleMapReady = useCallback((map: google.maps.Map) => {
+    const markerContent = document.createElement("div");
+    markerContent.className = "artline-google-marker";
+    markerContent.setAttribute("aria-label", "Art Line — Торетай, 43");
+    markerContent.innerHTML = "<span>AL</span>";
+    new google.maps.marker.AdvancedMarkerElement({ map, position: CONTACT.location, title: "Art Line — Торетай, 43", content: markerContent });
+    map.panBy(-120, 42);
+  }, []);
   const formatSwipe = useHorizontalSwipe(formatPrevious, formatNext);
   const portfolioSwipe = useHorizontalSwipe(portfolioPrevious, portfolioNext);
   const routeHref = `https://www.google.com/maps/dir/?api=1&destination=${CONTACT.location.lat},${CONTACT.location.lng}`;

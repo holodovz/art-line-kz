@@ -1,0 +1,38 @@
+.map-sdk {
+  filter: grayscale(1) brightness(.34) contrast(1.22) saturate(.4);
+}
+
+.artline-google-marker {
+  display: grid;
+  position: relative;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid #e0c070;
+  border-radius: 999px;
+  background: #151617;
+  box-shadow: 0 0 0 7px rgba(224, 192, 112, .13), 0 8px 18px rgba(0, 0, 0, .45);
+  color: #e0c070;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.artline-google-marker::after {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-right: 1px solid #e0c070;
+  border-bottom: 1px solid #e0c070;
+  background: #151617;
+  content: "";
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.artline-google-marker span {
+  position: relative;
+  z-index: 1;
+}
