@@ -1,5 +1,6 @@
 /// <reference types="@types/google.maps" />
 
+import { Maximize2 } from "lucide-react";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -80,7 +81,19 @@ export function MapView({
   staticFallback = true,
 }: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
+  const mapFrame = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<MapStatus>("loading");
+  const language = typeof document === "undefined" ? "ru" : document.documentElement.lang.slice(0, 2);
+  const fullscreenLabel = language === "kk" ? "Толық экран" : language === "en" ? "Full screen" : "На весь экран";
+  const openFullscreen = () => {
+    const frame = mapFrame.current;
+    const embedUrl = getGoogleEmbedUrl(initialCenter, initialZoom);
+    if (!frame?.requestFullscreen) {
+      window.open(embedUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+    void frame.requestFullscreen().catch(() => window.open(embedUrl, "_blank", "noopener,noreferrer"));
+  };
 
   useEffect(() => {
     let active = true;
@@ -123,7 +136,7 @@ export function MapView({
   }, [initialCenter, initialZoom, onMapReady, onStatusChange, staticFallback]);
 
   return (
-    <div className={cn("relative h-[500px] w-full !opacity-100", className)}>
+    <div ref={mapFrame} className={cn("map-fullscreen-frame relative h-[500px] w-full !opacity-100", className)}>
       {staticFallback ? (
         <>
           <iframe
@@ -134,6 +147,7 @@ export function MapView({
             referrerPolicy="no-referrer-when-downgrade"
           />
           {fallback && <div className="map-embed-plaque">{fallback}</div>}
+          <button type="button" onClick={openFullscreen} className="map-fullscreen-control" aria-label={fullscreenLabel}><Maximize2 size={15} /><span>{fullscreenLabel}</span></button>
         </>
       ) : (
         <>
