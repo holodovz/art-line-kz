@@ -20,6 +20,15 @@ export function getMapsScriptUrl() {
   return `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=marker,places,geocoding,geometry`;
 }
 
+export function getGoogleEmbedUrl(center: google.maps.LatLngLiteral, zoom: number) {
+  const params = new URLSearchParams({
+    q: `${center.lat},${center.lng}`,
+    z: String(zoom),
+    output: "embed",
+  });
+  return `https://www.google.com/maps?${params.toString()}`;
+}
+
 function loadMapScript() {
   if (window.google?.maps) return Promise.resolve();
   if (mapScriptPromise) return mapScriptPromise;
@@ -114,10 +123,25 @@ export function MapView({
   }, [initialCenter, initialZoom, onMapReady, onStatusChange, staticFallback]);
 
   return (
-    <div className={cn("relative h-[500px] w-full", className)}>
-      <div ref={mapContainer} className="absolute inset-0" aria-hidden={status !== "ready"} />
-      {status === "loading" && <div className="map-status" aria-live="polite"><span /></div>}
-      {status === "error" && <div className="map-fallback" role="status">{fallback}</div>}
+    <div className={cn("relative h-[500px] w-full !opacity-100", className)}>
+      {staticFallback ? (
+        <>
+          <iframe
+            className="map-embed absolute inset-0 h-full w-full border-0"
+            src={getGoogleEmbedUrl(initialCenter, initialZoom)}
+            title="Google Maps"
+            loading="eager"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          {fallback && <div className="map-embed-plaque">{fallback}</div>}
+        </>
+      ) : (
+        <>
+          <div ref={mapContainer} className="absolute inset-0" aria-hidden={status !== "ready"} />
+          {status === "loading" && <div className="map-status" aria-live="polite"><span /></div>}
+          {status === "error" && <div className="map-fallback" role="status">{fallback}</div>}
+        </>
+      )}
     </div>
   );
 }
