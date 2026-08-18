@@ -67,7 +67,7 @@ interface MapViewProps {
   className?: string;
   initialCenter?: google.maps.LatLngLiteral;
   initialZoom?: number;
-  onMapReady?: (map: google.maps.Map) => void;
+  onMapReady?: (map: google.maps.Map) => void | Promise<void>;
   fallback?: ReactNode;
   onStatusChange?: (status: MapStatus) => void;
   staticFallback?: boolean;
@@ -134,7 +134,7 @@ export function MapView({
           streetViewControl: false,
           mapId: "DEMO_MAP_ID",
         });
-        onMapReady?.(map);
+        await onMapReady?.(map);
         updateStatus("ready");
       } catch (error) {
         console.warn("[MapView] Google Maps unavailable; fallback displayed.", error);
