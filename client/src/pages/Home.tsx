@@ -123,13 +123,18 @@ export default function Home({ lang }: { lang: Language }) {
   const portfolioNext = useCallback(() => setPortfolioSlide(value => getCircularIndex(value, 1, PORTFOLIO.length)), []);
   const lightboxPrevious = useCallback(() => setPortfolioActive(value => value === null ? null : getCircularIndex(value, -1, PORTFOLIO.length)), []);
   const lightboxNext = useCallback(() => setPortfolioActive(value => value === null ? null : getCircularIndex(value, 1, PORTFOLIO.length)), []);
-  const handleMapReady = useCallback(async (map: google.maps.Map) => {
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
-    const markerContent = document.createElement("div");
-    markerContent.className = "artline-google-marker";
-    markerContent.setAttribute("aria-label", "Art Line — Торетай, 43");
-    markerContent.innerHTML = "<span>AL</span>";
-    new AdvancedMarkerElement({ map, position: CONTACT.location, title: "Art Line — Торетай, 43", content: markerContent });
+  const handleMapReady = useCallback((map: google.maps.Map) => {
+    const markerSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="56" height="68" viewBox="0 0 56 68"><path d="M28 67C28 67 51 43 51 25A23 23 0 1 0 5 25C5 43 28 67 28 67Z" fill="#151617" stroke="#e0c070" stroke-width="1.5"/><circle cx="28" cy="25" r="15" fill="#e0c070"/><text x="28" y="29" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700" fill="#151617">AL</text></svg>`;
+    new google.maps.Marker({
+      map,
+      position: CONTACT.location,
+      title: "Art Line — Торетай, 43",
+      icon: {
+        url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(markerSvg)}`,
+        scaledSize: new google.maps.Size(56, 68),
+        anchor: new google.maps.Point(28, 68),
+      },
+    });
     map.panBy(-120, 42);
   }, []);
   const formatSwipe = useHorizontalSwipe(formatPrevious, formatNext);
