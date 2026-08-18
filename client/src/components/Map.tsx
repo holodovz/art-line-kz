@@ -1,6 +1,6 @@
 /// <reference types="@types/google.maps" />
 
-import { Maximize2 } from "lucide-react";
+import { Maximize2, X } from "lucide-react";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -83,8 +83,10 @@ export function MapView({
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapFrame = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<MapStatus>("loading");
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const language = typeof document === "undefined" ? "ru" : document.documentElement.lang.slice(0, 2);
   const fullscreenLabel = language === "kk" ? "Толық экран" : language === "en" ? "Full screen" : "На весь экран";
+  const exitFullscreenLabel = language === "kk" ? "Толық экраннан шығу" : language === "en" ? "Exit full screen" : "Выйти из полноэкранного режима";
   const openFullscreen = () => {
     const frame = mapFrame.current;
     const embedUrl = getGoogleEmbedUrl(initialCenter, initialZoom);
@@ -94,6 +96,15 @@ export function MapView({
     }
     void frame.requestFullscreen().catch(() => window.open(embedUrl, "_blank", "noopener,noreferrer"));
   };
+  const exitFullscreen = () => {
+    if (document.fullscreenElement) void document.exitFullscreen();
+  };
+
+  useEffect(() => {
+    const updateFullscreenState = () => setIsFullscreen(document.fullscreenElement === mapFrame.current);
+    document.addEventListener("fullscreenchange", updateFullscreenState);
+    return () => document.removeEventListener("fullscreenchange", updateFullscreenState);
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -146,8 +157,8 @@ export function MapView({
             loading="eager"
             referrerPolicy="no-referrer-when-downgrade"
           />
-          {fallback && <div className="map-embed-plaque">{fallback}</div>}
-          <button type="button" onClick={openFullscreen} className="map-fullscreen-control" aria-label={fullscreenLabel}><Maximize2 size={15} /><span>{fullscreenLabel}</span></button>
+          {fallback && <div className={`map-embed-plaque ${isFullscreen ? "is-hidden" : ""}`}>{fallback}</div>}
+          <button type="button" onClick={isFullscreen ? exitFullscreen : openFullscreen} className={`map-fullscreen-control ${isFullscreen ? "is-exit" : ""}`} aria-label={isFullscreen ? exitFullscreenLabel : fullscreenLabel}>{isFullscreen ? <X size={17} /> : <Maximize2 size={15} />}<span>{isFullscreen ? exitFullscreenLabel : fullscreenLabel}</span></button>
         </>
       ) : (
         <>
