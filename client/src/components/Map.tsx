@@ -1,83 +1,6 @@
-/**
- * GOOGLE MAPS FRONTEND INTEGRATION - ESSENTIAL GUIDE
- *
- * USAGE FROM PARENT COMPONENT:
- * ======
- *
- * const mapRef = useRef<google.maps.Map | null>(null);
- *
- * <MapView
- *   initialCenter={{ lat: 40.7128, lng: -74.0060 }}
- *   initialZoom={15}
- *   onMapReady={(map) => {
- *     mapRef.current = map; // Store to control map from parent anytime, google map itself is in charge of the re-rendering, not react state.
- * </MapView>
- *
- * ======
- * Available Libraries and Core Features:
- * -------------------------------
- * 📍 MARKER (from `marker` library)
- * - Attaches to map using { map, position }
- * new google.maps.marker.AdvancedMarkerElement({
- *   map,
- *   position: { lat: 37.7749, lng: -122.4194 },
- *   title: "San Francisco",
- * });
- *
- * -------------------------------
- * 🏢 PLACES (from `places` library)
- * - Does not attach directly to map; use data with your map manually.
- * const place = new google.maps.places.Place({ id: PLACE_ID });
- * await place.fetchFields({ fields: ["displayName", "location"] });
- * map.setCenter(place.location);
- * new google.maps.marker.AdvancedMarkerElement({ map, position: place.location });
- *
- * -------------------------------
- * 🧭 GEOCODER (from `geocoding` library)
- * - Standalone service; manually apply results to map.
- * const geocoder = new google.maps.Geocoder();
- * geocoder.geocode({ address: "New York" }, (results, status) => {
- *   if (status === "OK" && results[0]) {
- *     map.setCenter(results[0].geometry.location);
- *     new google.maps.marker.AdvancedMarkerElement({
- *       map,
- *       position: results[0].geometry.location,
- *     });
- *   }
- * });
- *
- * -------------------------------
- * 📐 GEOMETRY (from `geometry` library)
- * - Pure utility functions; not attached to map.
- * const dist = google.maps.geometry.spherical.computeDistanceBetween(p1, p2);
- *
- * -------------------------------
- * 🛣️ ROUTES (from `routes` library)
- * - Combines DirectionsService (standalone) + DirectionsRenderer (map-attached)
- * const directionsService = new google.maps.DirectionsService();
- * const directionsRenderer = new google.maps.DirectionsRenderer({ map });
- * directionsService.route(
- *   { origin, destination, travelMode: "DRIVING" },
- *   (res, status) => status === "OK" && directionsRenderer.setDirections(res)
- * );
- *
- * -------------------------------
- * 🌦️ MAP LAYERS (attach directly to map)
- * - new google.maps.TrafficLayer().setMap(map);
- * - new google.maps.TransitLayer().setMap(map);
- * - new google.maps.BicyclingLayer().setMap(map);
- *
- * -------------------------------
- * ✅ SUMMARY
- * - “map-attached” → AdvancedMarkerElement, DirectionsRenderer, Layers.
- * - “standalone” → Geocoder, DirectionsService, DistanceMatrixService, ElevationService.
- * - “data-only” → Place, Geometry utilities.
- */
-
 /// <reference types="@types/google.maps" />
 
-import { useEffect, useRef } from "react";
-import { usePersistFn } from "@/hooks/usePersistFn";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 declare global {
@@ -87,26 +10,45 @@ declare global {
 }
 
 const API_KEY = import.meta.env.VITE_FRONTEND_FORGE_API_KEY;
-const FORGE_BASE_URL =
-  import.meta.env.VITE_FRONTEND_FORGE_API_URL ||
-  "https://forge.butterfly-effect.dev";
+const FORGE_BASE_URL = import.meta.env.VITE_FRONTEND_FORGE_API_URL || "https://forge.butterfly-effect.dev";
 const MAPS_PROXY_URL = `${FORGE_BASE_URL}/v1/maps/proxy`;
+let mapScriptPromise: Promise<void> | null = null;
+
+export type MapStatus = "loading" | "ready" | "error";
+
+export function getMapsScriptUrl() {
+  return `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=marker,places,geocoding,geometry`;
+}
 
 function loadMapScript() {
-  return new Promise(resolve => {
+  if (window.google?.maps) return Promise.resolve();
+  if (mapScriptPromise) return mapScriptPromise;
+
+  mapScriptPromise = new Promise<void>((resolve, reject) => {
     const script = document.createElement("script");
-    script.src = `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=marker,places,geocoding,geometry`;
+    const timeout = window.setTimeout(() => {
+      script.remove();
+      reject(new Error("Google Maps loading timed out"));
+    }, 7000);
+
+    script.src = getMapsScriptUrl();
     script.async = true;
-    script.crossOrigin = "anonymous";
     script.onload = () => {
-      resolve(null);
-      script.remove(); // Clean up immediately
+      window.clearTimeout(timeout);
+      if (window.google?.maps) resolve();
+      else reject(new Error("Google Maps API did not initialise"));
     };
     script.onerror = () => {
-      console.error("Failed to load Google Maps script");
+      window.clearTimeout(timeout);
+      reject(new Error("Failed to load Google Maps script"));
     };
     document.head.appendChild(script);
+  }).catch(error => {
+    mapScriptPromise = null;
+    throw error;
   });
+
+  return mapScriptPromise;
 }
 
 interface MapViewProps {
@@ -114,6 +56,8 @@ interface MapViewProps {
   initialCenter?: google.maps.LatLngLiteral;
   initialZoom?: number;
   onMapReady?: (map: google.maps.Map) => void;
+  fallback?: ReactNode;
+  onStatusChange?: (status: MapStatus) => void;
 }
 
 export function MapView({
@@ -121,35 +65,53 @@ export function MapView({
   initialCenter = { lat: 37.7749, lng: -122.4194 },
   initialZoom = 12,
   onMapReady,
+  fallback,
+  onStatusChange,
 }: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<google.maps.Map | null>(null);
-
-  const init = usePersistFn(async () => {
-    await loadMapScript();
-    if (!mapContainer.current) {
-      console.error("Map container not found");
-      return;
-    }
-    map.current = new window.google.maps.Map(mapContainer.current, {
-      zoom: initialZoom,
-      center: initialCenter,
-      mapTypeControl: true,
-      fullscreenControl: true,
-      zoomControl: true,
-      streetViewControl: true,
-      mapId: "DEMO_MAP_ID",
-    });
-    if (onMapReady) {
-      onMapReady(map.current);
-    }
-  });
+  const [status, setStatus] = useState<MapStatus>("loading");
 
   useEffect(() => {
-    init();
-  }, [init]);
+    let active = true;
+    const updateStatus = (nextStatus: MapStatus) => {
+      if (!active) return;
+      setStatus(nextStatus);
+      onStatusChange?.(nextStatus);
+    };
+
+    const init = async () => {
+      try {
+        updateStatus("loading");
+        await loadMapScript();
+        if (!active || !mapContainer.current || !window.google?.maps) return;
+        const map = new window.google.maps.Map(mapContainer.current, {
+          zoom: initialZoom,
+          center: initialCenter,
+          mapTypeControl: false,
+          fullscreenControl: true,
+          zoomControl: true,
+          streetViewControl: false,
+          mapId: "DEMO_MAP_ID",
+        });
+        onMapReady?.(map);
+        updateStatus("ready");
+      } catch (error) {
+        console.warn("[MapView] Google Maps unavailable; fallback displayed.", error);
+        updateStatus("error");
+      }
+    };
+
+    void init();
+    return () => {
+      active = false;
+    };
+  }, [initialCenter, initialZoom, onMapReady, onStatusChange]);
 
   return (
-    <div ref={mapContainer} className={cn("w-full h-[500px]", className)} />
+    <div className={cn("relative h-[500px] w-full", className)}>
+      <div ref={mapContainer} className="absolute inset-0" aria-hidden={status !== "ready"} />
+      {status === "loading" && <div className="map-status" aria-live="polite"><span /></div>}
+      {status === "error" && <div className="map-fallback" role="status">{fallback}</div>}
+    </div>
   );
 }
