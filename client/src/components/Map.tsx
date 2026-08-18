@@ -58,6 +58,7 @@ interface MapViewProps {
   onMapReady?: (map: google.maps.Map) => void;
   fallback?: ReactNode;
   onStatusChange?: (status: MapStatus) => void;
+  staticFallback?: boolean;
 }
 
 export function MapView({
@@ -67,6 +68,7 @@ export function MapView({
   onMapReady,
   fallback,
   onStatusChange,
+  staticFallback = true,
 }: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<MapStatus>("loading");
@@ -80,6 +82,10 @@ export function MapView({
     };
 
     const init = async () => {
+      if (staticFallback) {
+        updateStatus("error");
+        return;
+      }
       try {
         updateStatus("loading");
         await loadMapScript();
@@ -105,7 +111,7 @@ export function MapView({
     return () => {
       active = false;
     };
-  }, [initialCenter, initialZoom, onMapReady, onStatusChange]);
+  }, [initialCenter, initialZoom, onMapReady, onStatusChange, staticFallback]);
 
   return (
     <div className={cn("relative h-[500px] w-full", className)}>
