@@ -36,7 +36,11 @@ The RU browser contract test confirms `window.ArtLineMarketing.trackQualifiedLea
 
 Google Ads documentation distinguishes URL-based conversion setup for page-load events from code-based setup for button clicks and dynamic business logic. It also warns that conversion actions must be correctly designated as primary or secondary for bidding optimization. For Art Line, button/link events should be tracked for WhatsApp, phone, quote CTA, route opening and completed form-to-WhatsApp handoff, with only qualified lead events treated as primary after validation.
 
+Official access research: Google Business Profile uses Business Profile settings → People and access → Add user, with Owner or Manager roles; Manager can handle daily profile operations but cannot add/remove users or remove the profile. Google Ads uses Admin → Access and security → plus → email → access level → Send invitation; Standard is appropriate for campaign work, while Admin/Billing can change payment settings and should not be granted for routine setup. Both official Google pages recommend separate user accounts rather than password sharing.
+
 2GIS describes its Business Account as a free dashboard for managing company information, tracking metrics and buying ads. It supports profile details, photos, reviews, website links and statistics such as card opens, competitor counts and the information users inspect. This makes 2GIS both a local SEO hygiene channel and a potential paid test channel, but paid spend should follow profile completion and baseline card analytics.
+
+Yandex Business official documentation: open Businesses, select the company/branch, open Access, enter the recipient's Yandex ID, choose Owner or Representative, and confirm. Representative is the safer role for profile editing, photos, posts and review responses; Owner can transfer rights and manage representatives. 2GIS Platform Manager: open the correct company, Users → Invite, specify email and role, and send; Administrator can manage users, company profile, subscriptions and keys, while Owner is reserved for the company creator/transfer. Invitations have visible statuses and can be revoked or users removed.
 
 Sources:
 - Google Ads conversion measurement: https://support.google.com/google-ads/answer/16560108?hl=en
