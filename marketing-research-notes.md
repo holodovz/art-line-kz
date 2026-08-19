@@ -30,6 +30,8 @@ The EN browser test confirms `lang=en`, an `/en/` canonical, localized title, fo
 
 A full RU event test confirmed the same five events with `language=ru`. Both quote-submit checks used non-customer test input only for event verification and did not create or store a lead.
 
+The RU browser contract test confirms `window.ArtLineMarketing.trackQualifiedLead(...)` is available, emits a `qualified_lead` CustomEvent, and creates/pushes to `window.dataLayer` when no tag container is installed. Contact WhatsApp and desktop header phone elements are present; the mobile-menu phone handler is present in source and is rendered only when the mobile menu is opened at a mobile breakpoint.
+
 ## Measurement and advertising-platform notes
 
 Google Ads documentation distinguishes URL-based conversion setup for page-load events from code-based setup for button clicks and dynamic business logic. It also warns that conversion actions must be correctly designated as primary or secondary for bidding optimization. For Art Line, button/link events should be tracked for WhatsApp, phone, quote CTA, route opening and completed form-to-WhatsApp handoff, with only qualified lead events treated as primary after validation.
