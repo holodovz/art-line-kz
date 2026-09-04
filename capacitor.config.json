@@ -1,0 +1,15 @@
+{
+  "appId": "com.app.cryptobank",
+  "appName": "CryptoBank",
+  "webDir": "dist/public",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#0B1020"
+    }
+  }
+}
