@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "CryptoBank",
+    "slug": "cryptobank",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./client/public/icon.png",
+    "scheme": "cryptobank",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./client/public/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0B1020"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.app.cryptobank"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./client/public/adaptive-icon.png",
+        "backgroundColor": "#0B1020"
+      },
+      "package": "com.app.cryptobank",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [{ "scheme": "cryptobank", "host": "wx-callback" }],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./client/public/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "cryptobank-waves-wx-network"
+      }
+    }
+  }
+}
