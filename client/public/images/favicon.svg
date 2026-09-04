@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Art Line">
+  <rect width="64" height="64" fill="#17181A"/>
+  <g stroke="#E0C070" stroke-width="3">
+    <path d="M8 8 H27 M37 8 H56"/>
+    <path d="M56 8 V27 M56 37 V56"/>
+    <path d="M56 56 H37 M27 56 H8"/>
+    <path d="M8 56 V37 M8 27 V8"/>
+  </g>
+  <g stroke-width="4.5" stroke-linecap="square">
+    <path d="M15 47 L25 19 L35 47 M19.5 37 H30" stroke="#E0C070"/>
+    <path d="M33 19 V47 H45" stroke="#F0D080"/>
+  </g>
+</svg>

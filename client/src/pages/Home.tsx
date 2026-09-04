@@ -10,8 +10,8 @@ import { copy, Language, languageMeta } from "@/lib/i18n";
 import { trackMarketingEvent } from "@/lib/analytics";
 
 const ASSETS = {
-  logo: "/manus-storage/artline-logo-gold-cropped_db33abe9.png",
-  hero: "/manus-storage/artline-hero-signage_a386fa2d.jpg",
+  logo: "/images/logo.svg",
+  hero: "/images/hero-signage.jpg",
 };
 const isExternalStaticHost = typeof window !== "undefined" && !(
   window.location.hostname === "localhost" ||
@@ -28,24 +28,24 @@ const CONTACT = {
   coordinateLabel: "43.2704, 76.9249",
 };
 const FORMAT_BLUEPRINTS = [
-  "/manus-storage/artline-format-facade-blueprint_8ba9774c.png",
-  "/manus-storage/artline-format-retail-blueprint_0e25df61.png",
-  "/manus-storage/artline-format-interior-blueprint_e7f238df.png",
+  "/images/format-facade-blueprint.jpg",
+  "/images/format-retail-blueprint.jpg",
+  "/images/format-interior-blueprint.jpg",
 ] as const;
 const PORTFOLIO = [
-  ["/manus-storage/portfolio-city-installation_d8b55221.jpg", "City installation"],
-  ["/manus-storage/portfolio-shell-facade_2cc4a56b.jpg", "Shell façade"],
-  ["/manus-storage/portfolio-service-station_27c29742.jpg", "Service station"],
-  ["/manus-storage/portfolio-cinema-sign_8df63e59.jpg", "Cinema signage"],
-  ["/manus-storage/portfolio-window-installation_8b8d6717.jpg", "Window installation"],
-  ["/manus-storage/portfolio-art-illuminated-letters_88b6b458.jpg", "Illuminated letters"],
-  ["/manus-storage/portfolio-art-asia-sign_b6a12ee6.jpg", "Art Asia sign"],
-  ["/manus-storage/portfolio-retail-cubex_7b51312f.jpg", "Retail branding"],
-  ["/manus-storage/portfolio-retail-wall-branding_bdfecc9d.jpg", "Retail wall"],
-  ["/manus-storage/portfolio-retail-display_2d0e5b4d.jpg", "Retail display"],
-  ["/manus-storage/portfolio-floor-logo_11ed0c61.jpg", "Floor logo"],
-  ["/manus-storage/portfolio-reception-branding_1f95530d.jpg", "Reception branding"],
-  ["/manus-storage/portfolio-event-wall_9c086a8e.jpg", "Event wall"],
+  ["/images/portfolio-city-installation.jpg", "City installation"],
+  ["/images/portfolio-shell-facade.jpg", "Shell façade"],
+  ["/images/portfolio-service-station.jpg", "Service station"],
+  ["/images/portfolio-cinema-sign.jpg", "Cinema signage"],
+  ["/images/portfolio-window-installation.jpg", "Window installation"],
+  ["/images/portfolio-illuminated-letters.jpg", "Illuminated letters"],
+  ["/images/portfolio-art-asia-sign.jpg", "Art Asia sign"],
+  ["/images/portfolio-retail-cubex.jpg", "Retail branding"],
+  ["/images/portfolio-retail-wall-branding.jpg", "Retail wall"],
+  ["/images/portfolio-retail-display.jpg", "Retail display"],
+  ["/images/portfolio-floor-logo.jpg", "Floor logo"],
+  ["/images/portfolio-reception-branding.jpg", "Reception branding"],
+  ["/images/portfolio-event-wall.jpg", "Event wall"],
 ] as const;
 const portfolioText = {
   ru: { kicker: "03 / ПОРТФОЛИО", title: ["Работы,", "которые уже видны."], text: "Реальные проекты из архива Art Line: фасадные вывески, световые буквы, оформление ритейла и интерьерные решения.", all: "Открыть фото", close: "Закрыть фото", previous: "Предыдущее фото", next: "Следующее фото", archive: "Архив Art Line", proof: "Реальная работа", labels: ["Городская инсталляция", "Фасадная вывеска", "Оформление АЗС", "Вывеска кинотеатра", "Оформление витрины", "Световые буквы", "Световой знак", "Брендирование ритейла", "Брендированная стена", "Торговая стойка", "Логотип в интерьере", "Ресепшен", "Пресс-волл"] },

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://artlinekz-ahcuptvh.manus.space/sitemap.xml
+Sitemap: https://artline.kz/sitemap.xml

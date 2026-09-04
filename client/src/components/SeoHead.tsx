@@ -57,7 +57,7 @@ export default function SeoHead({ lang }: { lang: Language }) {
     setProperty("og:description", description);
     setProperty("og:url", canonical);
     setProperty("og:locale", lang === "ru" ? "ru_RU" : lang === "kz" ? "kk_KZ" : "en_US");
-    setProperty("og:image", `${origin}/manus-storage/artline-hero-signage_a386fa2d.jpg`);
+    setProperty("og:image", `${origin}/images/hero-signage.jpg`);
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", title);
     setMeta("twitter:description", description);
@@ -76,7 +76,7 @@ export default function SeoHead({ lang }: { lang: Language }) {
       name: SITE_NAME,
       url: canonical,
       telephone: "+7 776 006 38 19",
-      image: `${origin}/manus-storage/artline-hero-signage_a386fa2d.jpg`,
+      image: `${origin}/images/hero-signage.jpg`,
       address: {
         "@type": "PostalAddress",
         streetAddress: "Торетай, 43",

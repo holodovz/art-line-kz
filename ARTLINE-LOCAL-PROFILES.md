@@ -11,7 +11,7 @@
 | WhatsApp | https://wa.me/77760063819 |
 | Адрес | Казахстан, Алматы, ул. Торетай, 43 |
 | Часы | Пн–Сб, 08:00–18:00 |
-| Сайт | https://artlinekz-ahcuptvh.manus.space/ |
+| Сайт | https://artline.kz/ |
 | Геокоординаты | 43.270438, 76.924892 |
 | Услуги | Вывески и объёмные буквы; световые короба; оформление витрин; навигация и таблички; широкоформатная печать; брендирование |
 
@@ -19,9 +19,9 @@
 
 | Профиль | Ссылка |
 |---|---|
-| Google Business Profile | `https://artlinekz-ahcuptvh.manus.space/?utm_source=google&utm_medium=organic&utm_campaign=business_profile` |
-| Yandex Business | `https://artlinekz-ahcuptvh.manus.space/?utm_source=yandex&utm_medium=organic&utm_campaign=business_profile` |
-| 2GIS | `https://artlinekz-ahcuptvh.manus.space/?utm_source=2gis&utm_medium=organic&utm_campaign=business_profile` |
+| Google Business Profile | `https://artline.kz/?utm_source=google&utm_medium=organic&utm_campaign=business_profile` |
+| Yandex Business | `https://artline.kz/?utm_source=yandex&utm_medium=organic&utm_campaign=business_profile` |
+| 2GIS | `https://artline.kz/?utm_source=2gis&utm_medium=organic&utm_campaign=business_profile` |
 | WhatsApp из карточек | `https://wa.me/77760063819?text=Здравствуйте%2C%20нашёл%20вас%20в%20картах` |
 
 ## Google Business Profile

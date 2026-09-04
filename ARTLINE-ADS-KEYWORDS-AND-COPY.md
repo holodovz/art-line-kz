@@ -269,13 +269,13 @@ EN-кампанию использовать для англоязычных к�
 Для основной страницы:
 
 ```text
-https://artlinekz-ahcuptvh.manus.space/?utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_content={creative}&utm_term={keyword}
+https://artline.kz/?utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_content={creative}&utm_term={keyword}
 ```
 
 Для Яндекс Директ:
 
 ```text
-https://artlinekz-ahcuptvh.manus.space/?utm_source=yandex&utm_medium=cpc&utm_campaign={campaign_id}&utm_content={ad_id}&utm_term={keyword}
+https://artline.kz/?utm_source=yandex&utm_medium=cpc&utm_campaign={campaign_id}&utm_content={ad_id}&utm_term={keyword}
 ```
 
 Если конкретный кабинет не принимает один из динамических параметров, заменить его на статический идентификатор группы. Внутри кабинета обязательно проверить финальный URL, чтобы все языковые ссылки и CTA сохранялись.

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 72" fill="none" role="img" aria-label="Art Line">
+  <!-- Navigation module: square with axis breaks -->
+  <g stroke="#E0C070" stroke-width="2.5">
+    <path d="M2 2 H31 M41 2 H70"/>
+    <path d="M70 2 V31 M70 41 V70"/>
+    <path d="M70 70 H41 M31 70 H2"/>
+    <path d="M2 70 V41 M2 31 V2"/>
+  </g>
+  <!-- Axis ticks in the breaks -->
+  <g stroke="#E0C070" stroke-width="1.5" opacity="0.85">
+    <path d="M36 0 V4 M36 68 V72"/>
+    <path d="M0 36 H4 M68 36 H72"/>
+  </g>
+  <!-- Overlaid AL monogram -->
+  <g stroke-width="4" stroke-linecap="square">
+    <path d="M12 54 L25 18 L38 54 M17.5 42 H31" stroke="#E0C070"/>
+    <path d="M33 18 V54 H49" stroke="#F0D080"/>
+  </g>
+  <!-- ART LINE wordmark -->
+  <g transform="translate(90,22)" stroke="#E0C070" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter">
+    <!-- A -->
+    <path d="M0 28 L11 0 L22 28 M5 18 H17"/>
+    <!-- R -->
+    <path d="M26 28 V0 H40 Q48 0 48 7 Q48 14 40 14 H26 M35 14 L48 28"/>
+    <!-- T -->
+    <path d="M52 0 H74 M63 0 V28"/>
+    <!-- L -->
+    <path d="M86 0 V28 H108"/>
+    <!-- I -->
+    <path d="M112 0 H128 M120 0 V28 M112 28 H128"/>
+    <!-- N -->
+    <path d="M132 28 V0 L154 28 V0"/>
+    <!-- E -->
+    <path d="M180 0 H158 V28 H180 M158 14 H174"/>
+  </g>
+</svg>
