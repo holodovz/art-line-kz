@@ -1,0 +1,20 @@
+{
+  "name": "CryptoBank",
+  "packageId": "com.app.cryptobank",
+  "version": "1.0.0",
+  "entry": "dist/public/index.html",
+  "orientation": "portrait",
+  "statusBar": true,
+  "permissions": ["INTERNET", "ACCESS_NETWORK_STATE", "VIBRATE"],
+  "icon": null,
+  "network": {
+    "cleartext": false
+  },
+  "webview": {
+    "backButton": "history",
+    "clearCacheOnStart": false
+  },
+  "splashScreen": {
+    "backgroundColor": "#0B1020"
+  }
+}
